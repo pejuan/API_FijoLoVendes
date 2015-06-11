@@ -13,7 +13,7 @@ get '/login' do
     erb :login_form
 end
 get '/refresh' do
-	posts = Mysql2xxxx::JSON.new :user => 'b6c02bdf9056e0', :password => 'ce220f72', :database => 'TESTDB', :execute => 'Select * from productos'
+	posts = Mysql2xxxx::JSON.new :user => 'b6c02bdf9056e0', :password => 'ce220f72', :database => 'heroku_7f8d7c35705900d', :execute => 'Select * from productos'
 	posts.to_s
 end
 
@@ -27,7 +27,7 @@ post '/publicar' do
 		seller = params[:seller]
 		stock = params[:stock]
 		begin
-			conexion = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'TESTDB'
+			conexion = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'heroku_7f8d7c35705900d'
 			query_publicar = conexion.query "INSERT INTO productos(Item,Price,Shipping,Seller,Stock,users_id) VALUES(\'#{item}\',#{price},\'#{shipping}\',\'#{seller}\',#{stock},#{id})"
 		rescue Mysql::Error => e
 			puts e.error
@@ -46,7 +46,7 @@ post '/login' do
 	psw = params[:password]
 	md5 = Digest::MD5.hexdigest(psw)
 	begin  
-	    connection = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'TESTDB'
+	    connection = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'heroku_7f8d7c35705900d'
 	    query_login = connection.query "SELECT * FROM users WHERE email = \'#{name}\' AND password = \'#{psw}\'"
 		if query_login.num_rows == 1  
 			session[:signed_in] = true
@@ -72,7 +72,7 @@ post '/signup' do
 	psw1 = params[:pass]
 	psw2 = params[:pass2]
 	if psw1 == psw2
-		con = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'TESTDB'
+		con = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'heroku_7f8d7c35705900d'
 		query_signup1 = con.query "SELECT * FROM users WHERE email = \'#{correo}\'"
 		if query_signup1.num_rows < 1
 			query_signupfinal = con.query "INSERT INTO users(Nombre,Apellido,email,password) VALUES(\'#{nom}\',\'#{apellido}\',\'#{correo}\',\'#{psw1}\')"
@@ -94,7 +94,7 @@ post '/createComment' do
 	comment = params[:comment]
 	id_prod = params[:id]
 	if session[:signed_in] == true
-		cone = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'TESTDB'
+		cone = Mysql.new 'us-cdbr-iron-east-02.cleardb.net', 'b6c02bdf9056e0', 'ce220f72', 'heroku_7f8d7c35705900d'
 		query_comment = cone.query "INSERT INTO comments(comment, id_prod, id_users) VALUES(\'#{comment}\',#{id_prod},#{id})"
 	end
 
