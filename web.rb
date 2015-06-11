@@ -13,7 +13,7 @@ get '/login' do
     erb :login_form
 end
 get '/refresh' do
-	posts = Mysql2xxxx::JSON.new :host => 'us-cdbr-iron-east-02.cleardb.net' :user => 'b6c02bdf9056e0', :password => 'ce220f72', :database => 'heroku_7f8d7c35705900d', :execute => 'Select * from productos'
+	posts = Mysql2xxxx::JSON.new :host => 'us-cdbr-iron-east-02.cleardb.net', :user => 'b6c02bdf9056e0', :password => 'ce220f72', :database => 'heroku_7f8d7c35705900d', :execute => 'Select * from productos'
 	posts.to_s
 end
 
