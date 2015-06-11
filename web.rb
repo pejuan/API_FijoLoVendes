@@ -90,7 +90,7 @@ get '/private' do
         "You're welcome :D"
     end
 end
-post '/createComment' do
+post '/createComment/:id' do
 	comment = params[:comment]
 	id_prod = params[:id]
 	if session[:signed_in] == true
